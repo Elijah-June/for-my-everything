@@ -1,0 +1,1543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Love Story - 9 Months ❤️</title>
+    <!-- YouTube IFrame API -->
+    <script src="https://www.youtube.com/iframe_api"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Georgia', 'Times New Roman', serif;
+            background: linear-gradient(135deg, #fff5f5 0%, #fdf2f8 50%, #faf5ff 100%);
+            color: #4a3728;
+            line-height: 1.8;
+            min-height: 100vh;
+        }
+
+        /* ========== HERO SECTION ========== */
+        .hero {
+            height: 100vh;
+            min-height: 500px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        /*
+        ┌─────────────────────────────────────────────┐
+        │  🖼️ HERO IMAGE                              │
+        │  Replace 'hero-image.jpg' with your photo  │
+        │  Place the file in the same folder         │
+        └─────────────────────────────────────────────┘
+        */
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, #fecdd3, #ddd6fe);
+            background-image: url('files/hero-image.png');
+            background-size: cover;
+            background-position: center;
+            transition: transform 0.3s ease;
+        }
+
+        .hero-placeholder {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0,0,0,0.5);
+            color: white;
+            padding: 15px 30px;
+            border-radius: 10px;
+            font-size: 14px;
+            backdrop-filter: blur(5px);
+            z-index: 1;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.5));
+            z-index: 2;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 3;
+            text-align: center;
+            padding: 20px;
+            animation: fadeIn 1.5s ease;
+        }
+
+        .hero-hearts {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            animation: pulse 2s infinite;
+        }
+
+        .hero-title {
+            font-size: clamp(1.5rem, 5vw, 3rem);
+            color: white;
+            font-weight: 300;
+            text-shadow: 2px 2px 20px rgba(0,0,0,0.4);
+            letter-spacing: 1px;
+        }
+
+        .hero-date {
+            color: rgba(255,255,255,0.8);
+            font-size: 1rem;
+            margin-top: 15px;
+            font-style: italic;
+        }
+
+        .scroll-down {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 3;
+            font-size: 2rem;
+            cursor: pointer;
+            animation: bounce 2s infinite;
+            transition: transform 0.3s;
+        }
+
+        .scroll-down:hover {
+            transform: translateX(-50%) scale(1.2);
+        }
+
+        /* ========== VIEW TOGGLE ========== */
+        .view-toggle-container {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: linear-gradient(to bottom, rgba(253,242,248,0.95), rgba(253,242,248,0));
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .view-toggle-btn {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 24px;
+            background: white;
+            border: 2px solid #ec4899;
+            border-radius: 50px;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 0.9rem;
+            color: #be185d;
+            box-shadow: 0 4px 20px rgba(236,72,153,0.2);
+            transition: all 0.3s ease;
+        }
+
+        .view-toggle-btn:hover {
+            background: #ec4899;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* ========== SECTION STYLES ========== */
+        .section {
+            padding: 60px 20px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: clamp(1.5rem, 4vw, 2.2rem);
+            color: #be185d;
+            margin-bottom: 50px;
+        }
+
+        .section-title::after {
+            content: ' 💕';
+        }
+
+        /* ========== TIMELINE VIEW ========== */
+        .timeline-container {
+            position: relative;
+        }
+
+        .timeline-line {
+            position: absolute;
+            left: 20px;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: linear-gradient(to bottom, #f9a8d4, #c4b5fd, #f9a8d4);
+            border-radius: 2px;
+            transition: opacity 0.4s ease;
+        }
+
+        /* ========== CARDS GRID (Card View) ========== */
+        .months-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+            padding-left: 50px;
+            transition: all 0.4s ease;
+        }
+
+        .months-wrapper.grid-view {
+            display: block;
+            column-width: 280px;
+            column-gap: 25px;
+            padding-left: 0;
+        }
+
+        .months-wrapper.grid-view ~ .timeline-line {
+            opacity: 0;
+        }
+
+        /* ========== MONTH CARD ========== */
+        .month-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(190,24,93,0.1);
+            opacity: 0;
+            transform: translateY(40px);
+            position: relative;
+        }
+
+        .month-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .month-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 50px rgba(190,24,93,0.2);
+            transition: all 0.3s ease;
+        }
+
+        /* Grid view specific styles */
+        .months-wrapper.grid-view .month-card {
+            display: inline-block;
+            width: 100%;
+            margin: 0 0 25px;
+            break-inside: avoid;
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        /* Specific styles for expanded cards in grid view */
+        .months-wrapper.grid-view .month-card.expanded {
+            box-shadow: 0 25px 60px rgba(190,24,93,0.25) !important;
+        }
+
+        .months-wrapper.grid-view .month-card:not(.expanded):hover {
+            transform: translateY(-6px) scale(1.01) !important;
+        }
+
+        .month-card::before {
+            content: '';
+            position: absolute;
+            left: -38px;
+            top: 30px;
+            width: 18px;
+            height: 18px;
+            background: linear-gradient(135deg, #ec4899, #8b5cf6);
+            border-radius: 50%;
+            border: 3px solid white;
+            box-shadow: 0 0 0 4px rgba(236,72,153,0.3);
+            transition: all 0.3s ease;
+        }
+
+        .months-wrapper.grid-view .month-card::before {
+            display: none;
+        }
+
+        .month-card:hover::before {
+            transform: scale(1.3);
+        }
+
+        /* Card Header */
+        .card-header {
+            padding: 20px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .months-wrapper:not(.grid-view) .card-header {
+            cursor: default;
+        }
+
+        .months-wrapper.grid-view .card-header:hover {
+            background: #fdf2f8;
+        }
+
+        .month-badge {
+            background: linear-gradient(135deg, #ec4899, #8b5cf6);
+            color: white;
+            padding: 6px 18px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: 1px;
+        }
+
+        .expand-icon {
+            font-size: 1.2rem;
+            transition: transform 0.3s ease;
+            display: none;
+        }
+
+        .months-wrapper.grid-view .expand-icon {
+            display: block;
+        }
+
+        .month-card.expanded .expand-icon {
+            transform: rotate(180deg);
+        }
+
+        /* Card Body */
+        .card-body {
+            padding: 0 25px 25px;
+            transition: all 0.4s ease;
+        }
+
+        .months-wrapper.grid-view .card-body {
+            max-height: 0;
+            padding: 0 25px;
+            overflow: hidden;
+            opacity: 0;
+        }
+
+        .months-wrapper.grid-view .month-card.expanded .card-body {
+            max-height: 800px;
+            padding: 0 25px 25px;
+            opacity: 1;
+        }
+
+        /*
+        ┌─────────────────────────────────────────────────┐
+        │  🖼️ MONTH IMAGES                                │
+        │  Save images as: month-1.jpg to month-9.jpg    │
+        │  Place files in the same folder as HTML        │
+        └─────────────────────────────────────────────────┘
+        */
+        .month-image {
+            width: 100%;
+            height: auto;
+            min-height: 200px;
+            max-height: 400px;
+            background: linear-gradient(135deg, #fce7f3, #ede9fe);
+            border-radius: 12px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-size: contain;
+            background-position: center;
+            background-repeat: no-repeat;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Keep fixed height for Grid View */
+        .months-wrapper.grid-view .month-image {
+            height: 200px;
+            min-height: 200px;
+            max-height: 200px;
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+
+        .image-placeholder {
+            background: rgba(255,255,255,0.9);
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            color: #666;
+        }
+
+        .memory-text {
+            font-style: italic;
+            color: #6b7280;
+            padding-left: 15px;
+            border-left: 3px solid #f9a8d4;
+            margin-bottom: 20px;
+            line-height: 1.7;
+        }
+
+        /*
+        ┌─────────────────────────────────────────────────┐
+        │  🎤 AUDIO WHISPERS                              │
+        │  Save as: whisper-1.mp3 to whisper-9.mp3       │
+        │  Place files in the same folder as HTML        │
+        └─────────────────────────────────────────────────┘
+        */
+        .audio-btn {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: #fdf2f8;
+            padding: 12px 18px;
+            border-radius: 25px;
+            cursor: pointer;
+            margin-bottom: 15px;
+            transition: all 0.3s ease;
+            border: none;
+            width: 100%;
+            text-align: left;
+            font-family: inherit;
+        }
+
+        .audio-btn:hover {
+            background: #fce7f3;
+            transform: translateX(5px);
+        }
+
+        .audio-btn.playing {
+            background: linear-gradient(135deg, #ec4899, #8b5cf6);
+            color: white;
+        }
+
+        .play-icon {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, #ec4899, #8b5cf6);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 0.75rem;
+            flex-shrink: 0;
+        }
+
+        .audio-btn.playing .play-icon {
+            background: white;
+            color: #ec4899;
+        }
+
+        .audio-text {
+            font-size: 0.85rem;
+            color: #be185d;
+        }
+
+        .audio-btn.playing .audio-text {
+            color: white;
+        }
+
+        /*
+        ┌─────────────────────────────────────────────────┐
+        │  🎵 SECRET SONG                                 │
+        │  Save as: our-song.mp3                         │
+        │  Place file in the same folder as HTML         │
+        └─────────────────────────────────────────────────┘
+        */
+        .secret-song-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background: transparent;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 0.85rem;
+            color: #9ca3af;
+            transition: all 0.3s ease;
+        }
+
+        .secret-song-btn:hover {
+            background: #fdf2f8;
+            color: #ec4899;
+        }
+
+        .secret-song-btn .heart {
+            font-size: 1.4rem;
+            transition: transform 0.3s;
+        }
+
+        .secret-song-btn:hover .heart {
+            transform: scale(1.2);
+            animation: heartbeat 0.6s infinite;
+        }
+
+        .secret-song-btn.playing {
+            background: linear-gradient(135deg, #ec4899, #8b5cf6);
+            color: white;
+        }
+
+        /* ========== REASONS SECTION ========== */
+        .reasons-section {
+            background: linear-gradient(180deg, #fff, #fdf2f8);
+            padding: 80px 20px;
+        }
+
+        .reasons-list {
+            max-width: 800px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .reason-card {
+            background: white;
+            padding: 35px;
+            border-radius: 20px;
+            box-shadow: 0 5px 25px rgba(190,24,93,0.08);
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateX(-30px);
+            transition: all 0.5s ease;
+        }
+
+        .reason-card.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .reason-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(190,24,93,0.15);
+        }
+
+        .reason-number {
+            position: absolute;
+            top: -15px;
+            right: 20px;
+            font-size: 5rem;
+            font-weight: bold;
+            color: rgba(236,72,153,0.08);
+            pointer-events: none;
+        }
+
+        .reason-month {
+            color: #ec4899;
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+
+        .reason-text {
+            font-family: 'Brush Script MT', 'Segoe Script', cursive;
+            font-size: clamp(1.2rem, 3vw, 1.6rem);
+            color: #4a3728;
+            line-height: 1.5;
+        }
+
+        /* ========== COUNTDOWN SECTION ========== */
+        .countdown-section {
+            padding: 80px 20px;
+            text-align: center;
+            background: linear-gradient(135deg, #fce7f3, #ede9fe);
+        }
+
+        .countdown-subtitle {
+            color: #6b7280;
+            font-size: 1.1rem;
+            margin-bottom: 35px;
+        }
+
+        .countdown-boxes {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-bottom: 35px;
+        }
+
+        .countdown-box {
+            background: white;
+            padding: 20px 30px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(190,24,93,0.15);
+            min-width: 90px;
+            transition: transform 0.3s;
+        }
+
+        .countdown-box:hover {
+            transform: translateY(-8px) scale(1.05);
+        }
+
+        .countdown-num {
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: bold;
+            background: linear-gradient(135deg, #ec4899, #8b5cf6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .countdown-label {
+            font-size: 0.75rem;
+            color: #9ca3af;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .countdown-message {
+            font-size: 1.1rem;
+            color: #be185d;
+            font-style: italic;
+        }
+
+        /* ========== LETTER SECTION ========== */
+        .letter-section {
+            padding: 80px 20px;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .letter-paper {
+            background: white;
+            padding: clamp(25px, 5vw, 50px);
+            border-radius: 4px;
+            box-shadow: 0 15px 50px rgba(0,0,0,0.1);
+            position: relative;
+            background-image: repeating-linear-gradient(
+                transparent 0px,
+                transparent 24px,
+                #e5e5e5 24px,
+                #e5e5e5 25px
+            );
+            line-height: 25px;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .letter-paper.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .letter-paper::before {
+            content: '';
+            position: absolute;
+            left: 25px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: #fca5a5;
+        }
+
+        .letter-date {
+            text-align: right;
+            color: #9ca3af;
+            font-style: italic;
+            margin-bottom: 25px;
+        }
+
+        .letter-greeting {
+            color: #be185d;
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+        }
+
+        .letter-body p {
+            margin-bottom: 25px;
+            text-indent: 25px;
+            color: #4a3728;
+        }
+
+        .letter-closing {
+            text-align: right;
+            margin-top: 35px;
+        }
+
+        .letter-signature {
+            font-family: 'Brush Script MT', 'Segoe Script', cursive;
+            font-size: 1.8rem;
+            color: #ec4899;
+            margin-top: 8px;
+        }
+
+        /* ========== MUSIC SECTION ========== */
+        /*
+        ┌─────────────────────────────────────────────────┐
+        │  🎵 MUSIC PLAYER                                │
+        │  Option 1: Embed Spotify/Apple Music playlist  │
+        │  Option 2: Save songs as song-1.mp3, etc.      │
+        │  Place files in the same folder as HTML        │
+        └─────────────────────────────────────────────────┘
+        */
+        .music-section {
+            padding: 60px 20px;
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            text-align: center;
+        }
+
+        .music-title {
+            color: white;
+            font-size: 1.4rem;
+            margin-bottom: 30px;
+        }
+
+        .music-title span {
+            color: #ec4899;
+        }
+
+        .music-player {
+            max-width: 380px;
+            margin: 0 auto;
+            background: rgba(255,255,255,0.05);
+            padding: 25px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+        }
+
+        .player-display {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .album-cover {
+            width: 55px;
+            height: 55px;
+            background: linear-gradient(135deg, #ec4899, #8b5cf6);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+        }
+
+        .album-cover.spinning {
+            animation: spin 4s linear infinite;
+        }
+
+        .track-details {
+            text-align: left;
+        }
+
+        .track-title {
+            color: white;
+            font-size: 0.95rem;
+            margin-bottom: 2px;
+        }
+
+        .track-subtitle {
+            color: #9ca3af;
+            font-size: 0.8rem;
+        }
+
+        .progress-track {
+            height: 4px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 2px;
+            margin-bottom: 18px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #ec4899, #8b5cf6);
+            border-radius: 2px;
+            transition: width 0.3s;
+        }
+
+        .player-controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .ctrl-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.1rem;
+            cursor: pointer;
+            padding: 8px;
+            transition: all 0.3s;
+        }
+
+        .ctrl-btn:hover {
+            color: #ec4899;
+            transform: scale(1.15);
+        }
+
+        .ctrl-btn.main-play {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #ec4899, #8b5cf6);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+        }
+
+        .ctrl-btn.main-play:hover {
+            color: white;
+            transform: scale(1.1);
+        }
+
+        .embed-note {
+            margin-top: 20px;
+            padding: 15px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 10px;
+            color: #6b7280;
+            font-size: 0.8rem;
+        }
+
+        /* ========== FOOTER ========== */
+        .footer {
+            text-align: center;
+            padding: 40px 20px;
+            background: #fdf2f8;
+        }
+
+        .footer-hearts {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            animation: pulse 2s infinite;
+        }
+
+        .footer-text {
+            color: #9ca3af;
+            font-size: 0.9rem;
+        }
+
+        /* ========== TOAST ========== */
+        .toast {
+            position: fixed;
+            bottom: 25px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: linear-gradient(135deg, #ec4899, #8b5cf6);
+            color: white;
+            padding: 14px 28px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            box-shadow: 0 10px 30px rgba(236,72,153,0.4);
+            z-index: 1000;
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+
+        /* ========== ANIMATIONS ========== */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(-12px); }
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.25); }
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* ========== RESPONSIVE ========== */
+        @media (max-width: 600px) {
+            .months-wrapper {
+                padding-left: 40px;
+            }
+
+            .timeline-line {
+                left: 15px;
+                width: 3px;
+            }
+
+            .month-card::before {
+                left: -33px;
+                width: 14px;
+                height: 14px;
+            }
+
+            .card-header, .card-body {
+                padding-left: 20px;
+                padding-right: 20px;
+            }
+
+            .countdown-box {
+                min-width: 75px;
+                padding: 15px 20px;
+            }
+
+            .letter-paper {
+                padding: 20px;
+            }
+
+            .letter-paper::before {
+                left: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ==================== HERO ==================== -->
+    <section class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <div class="hero-hearts">💕✨💕</div>
+            <h1 class="hero-title">9 Months. Countless memories. One love.</h1>
+            <p class="hero-date">Since April 26, 2025</p>
+        </div>
+        <div class="scroll-down" id="scrollDown">⬇️</div>
+    </section>
+
+    <!-- ==================== VIEW TOGGLE ==================== -->
+    <div class="view-toggle-container">
+        <button class="view-toggle-btn" id="viewToggle">
+            <span id="toggleIcon">📋</span>
+            <span id="toggleText">Switch to Card View</span>
+        </button>
+    </div>
+
+    <!-- ==================== TIMELINE ==================== -->
+    <section class="section" id="timelineSection">
+        <h2 class="section-title">Our Journey Together</h2>
+        <div class="timeline-container">
+            <div class="timeline-line" id="timelineLine"></div>
+            <div class="months-wrapper" id="monthsWrapper">
+
+                <!-- ============================================
+                     🖼️ MONTH IMAGES INSTRUCTIONS:
+                     Save images as: month-1.jpg to month-9.jpg
+                     Place all files in the same folder as HTML
+                     ============================================ -->
+
+                <!-- MONTH 1 - May 2025 -->
+                <article class="month-card">
+                    <div class="card-header">
+                        <span class="month-badge">May 2025</span>
+                        <span class="expand-icon">⬇️</span>
+                    </div>
+                    <div class="card-body">
+                        <!-- 👇 REPLACE: month-1.jpg -->
+                        <div class="month-image" style="background-image: url('files/month-1.jpg');">
+                        </div>
+                        <p class="memory-text">"I was so nervous, but the second you smiled, the rest of the world just disappeared. My life will change, and infact it changed me. I have my home now."</p>
+                        <!-- 👇 REPLACE: whisper-1.mp3 -->
+                        <button class="audio-btn" data-audio="files/whisper-1.m4a">
+                            <span class="play-icon">▶</span>
+                            <span class="audio-text">🎤 "The first time I met you, I never thought I'd be here now."</span>
+                        </button>
+                    </div>
+                </article>
+
+                <!-- MONTH 2 - June 2025 -->
+                <article class="month-card">
+                    <div class="card-header">
+                        <span class="month-badge">June 2025</span>
+                        <span class="expand-icon">⬇️</span>
+                    </div>
+                    <div class="card-body">
+                        <!-- 👇 REPLACE: month-2.jpg -->
+                        <div class="month-image" style="background-image: url('files/month-2.jpg');">
+                        </div>
+                        <p class="memory-text">"I was hopeless and down at first yet here we are."</p>
+                        <button class="audio-btn" data-audio="files/whisper-2.m4a">
+                            <span class="play-icon">▶</span>
+                            <span class="audio-text">🎤 "You're the greatest gift I received on my birthday."</span>
+                        </button>
+                    </div>
+                </article>
+
+                <!-- MONTH 3 - July 2025 -->
+                <article class="month-card">
+                    <div class="card-header">
+                        <span class="month-badge">July 2025</span>
+                        <span class="expand-icon">⬇️</span>
+                    </div>
+                    <div class="card-body">
+                        <!-- 👇 REPLACE: month-3.jpg -->
+                        <div class="month-image" style="background-image: url('files/month-3.jpg');">
+                        </div>
+                        <p class="memory-text">"Through thick and thin, I will always be with you."</p>
+                        <button class="audio-btn" data-audio="files/whisper-3.m4a">
+                            <span class="play-icon">▶</span>
+                            <span class="audio-text">🎤 "You're the only one I want."</span>
+                        </button>
+                        <button class="secret-song-btn">
+                            <span class="heart">💗</span>
+                            <span>Our secret song</span>
+                        </button>
+                    </div>
+                </article>
+
+                <!-- MONTH 4 - August 2025 -->
+                <article class="month-card">
+                    <div class="card-header">
+                        <span class="month-badge">August 2025</span>
+                        <span class="expand-icon">⬇️</span>
+                    </div>
+                    <div class="card-body">
+                        <!-- 👇 REPLACE: month-4.jpg -->
+                        <div class="month-image" style="background-image: url('files/month-4.jpg');">
+                        </div>
+                        <p class="memory-text">"You changed me, you made me a better person."</p>
+                        <button class="audio-btn" data-audio="files/whisper-4.m4a">
+                            <span class="play-icon">▶</span>
+                            <span class="audio-text">🎤 "I'm really grateful that I found you."</span>
+                        </button>
+                        <button class="secret-song-btn">
+                            <span class="heart">💗</span>
+                            <span>Our secret song</span>
+                        </button>
+                    </div>
+                </article>
+
+                <!-- MONTH 5 - September 2025 -->
+                <article class="month-card">
+                    <div class="card-header">
+                        <span class="month-badge">September 2025</span>
+                        <span class="expand-icon">⬇️</span>
+                    </div>
+                    <div class="card-body">
+                        <!-- 👇 REPLACE: month-5.jpg -->
+                        <div class="month-image" style="background-image: url('files/month-5.jpg');">
+                        </div>
+                        <p class="memory-text">"Even I'm down, I always have you."</p>
+                        <button class="audio-btn" data-audio="files/whisper-5.m4a">
+                            <span class="play-icon">▶</span>
+                            <span class="audio-text">🎤 "I'll always wait for you."</span>
+                        </button>
+                        <button class="secret-song-btn">
+                            <span class="heart">💗</span>
+                            <span>Our secret song</span>
+                        </button>
+                    </div>
+                </article>
+
+                <!-- MONTH 6 - October 2025 -->
+                <article class="month-card">
+                    <div class="card-header">
+                        <span class="month-badge">October 2025</span>
+                        <span class="expand-icon">⬇️</span>
+                    </div>
+                    <div class="card-body">
+                        <!-- 👇 REPLACE: month-6.jpg -->
+                        <div class="month-image" style="background-image: url('files/month-6.jpg');">
+                        </div>
+                        <p class="memory-text">"I really wish I could be near to you"</p>
+                        <button class="audio-btn" data-audio="files/whisper-6.m4a">
+                            <span class="play-icon">▶</span>
+                            <span class="audio-text">🎤 "Happiness is spending time with someone. And that someone is you."</span>
+                        </button>
+                        <button class="secret-song-btn">
+                            <span class="heart">💗</span>
+                            <span>Our secret song</span>
+                        </button>
+                    </div>
+                </article>
+
+                <!-- MONTH 7 - November 2025 -->
+                <article class="month-card">
+                    <div class="card-header">
+                        <span class="month-badge">November 2025</span>
+                        <span class="expand-icon">⬇️</span>
+                    </div>
+                    <div class="card-body">
+                        <!-- 👇 REPLACE: month-7.jpg -->
+                        <div class="month-image" style="background-image: url('files/month-7.jpg');">
+                        </div>
+                        <p class="memory-text">"And you're always there. To lend a hand."</p>
+                        <button class="audio-btn" data-audio="files/whisper-7.m4a">
+                            <span class="play-icon">▶</span>
+                            <span class="audio-text">🎤 "In everything, I do. That's the wonder, wonder of you."</span>
+                        </button>
+                        <button class="secret-song-btn">
+                            <span class="heart">💗</span>
+                            <span>Our secret song</span>
+                        </button>
+                    </div>
+                </article>
+                <!-- MONTH 8 - December 2025 -->
+                <article class="month-card">
+                    <div class="card-header">
+                        <span class="month-badge">December 2025</span>
+                        <span class="expand-icon">⬇️</span>
+                    </div>
+                    <div class="card-body">
+                        <!-- 👇 REPLACE: month-8.jpg -->
+                        <div class="month-image" style="background-image: url('files/month-8.jpg');">
+                        </div>
+                        <p class="memory-text">"That Christmas was Unique. Because it has you in it."</p>
+                        <button class="audio-btn" data-audio="files/whisper-8.m4a">
+                            <span class="play-icon">▶</span>
+                            <span class="audio-text">🎤 "You made my life much more better, you are the twinkle that shines my world."</span>
+                        </button>
+                        <button class="secret-song-btn">
+                            <span class="heart">💗</span>
+                            <span>Our secret song</span>
+                        </button>
+                    </div>
+                </article>
+
+                <!-- MONTH 9 - January 2026 -->
+                <article class="month-card">
+                    <div class="card-header">
+                        <span class="month-badge">January 2026</span>
+                        <span class="expand-icon">⬇️</span>
+                    </div>
+                    <div class="card-body">
+                        <!-- 👇 REPLACE: month-9.jpg -->
+                        <div class="month-image" style="background-image: url('files/month-9.jpg');">
+                        </div>
+                        <p class="memory-text">"To the world, you are one person."</p>
+                        <button class="audio-btn" data-audio="files/whisper-9.m4a">
+                            <span class="play-icon">▶</span>
+                            <span class="audio-text">🎤 "To one person, you are the world."</span>
+                        </button>
+                        <button class="secret-song-btn">
+                            <span class="heart">💗</span>
+                            <span>Our secret song</span>
+                        </button>
+                    </div>
+                </article>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== REASONS ==================== -->
+    <section class="reasons-section">
+        <h2 class="section-title">9 Reasons Why I Love You</h2>
+        <div class="reasons-list">
+            <div class="reason-card">
+                <span class="reason-number">1</span>
+                <div class="reason-month">May 2025</div>
+                <p class="reason-text">S-   Sweetness that's over the roof. Please fight off the ants!!</p>
+            </div>
+            <div class="reason-card">
+                <span class="reason-number">2</span>
+                <div class="reason-month">June 2025</div>
+                <p class="reason-text">O-   Outstanding among the rest. You are truly a sight for my eyes.</p>
+            </div>
+            <div class="reason-card">
+                <span class="reason-number">3</span>
+                <div class="reason-month">July 2025</div>
+                <p class="reason-text">U- Unique out of all things. You really a good pair to me</p>
+            </div>
+            <div class="reason-card">
+                <span class="reason-number">4</span>
+                <div class="reason-month">August 2025</div>
+                <p class="reason-text">L- Love. The love you've given all throughout makes me weak. I really feel you.</p>
+            </div>
+            <div class="reason-card">
+                <span class="reason-number">5</span>
+                <div class="reason-month">September 2025</div>
+                <p class="reason-text">M- Motivation to keep my life going.</p>
+            </div>
+            <div class="reason-card">
+                <span class="reason-number">6</span>
+                <div class="reason-month">October 2025</div>
+                <p class="reason-text">A- Angelic. You are heaven sent!!</p>
+            </div>
+            <div class="reason-card">
+                <span class="reason-number">7</span>
+                <div class="reason-month">November 2025</div>
+                <p class="reason-text">T - Trustworthy. My ever loving partner.</p>
+            </div>
+            <div class="reason-card">
+                <span class="reason-number">8</span>
+                <div class="reason-month">December 2025</div>
+                <p class="reason-text">E- Extraodinary. Three Unique Words (pertaining to uniqueness) about you isn't enough to say that you are one of a kind.</p>
+            </div>
+            <div class="reason-card">
+                <span class="reason-number">9</span>
+                <div class="reason-month">January 2026</div>
+                <p class="reason-text">S- Special. You're the only one for me. My partner. My friend. Sometimes my enemy. But always your SOULMATE.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== COUNTDOWN ==================== -->
+    <section class="countdown-section">
+        <h2 class="section-title">Counting Down to Our First Year</h2>
+        <p class="countdown-subtitle">Until our 1-year anniversary on April 26, 2026...</p>
+        <div class="countdown-boxes">
+            <div class="countdown-box">
+                <div class="countdown-num" id="countDays">00</div>
+                <div class="countdown-label">Days</div>
+            </div>
+            <div class="countdown-box">
+                <div class="countdown-num" id="countHours">00</div>
+                <div class="countdown-label">Hours</div>
+            </div>
+            <div class="countdown-box">
+                <div class="countdown-num" id="countMins">00</div>
+                <div class="countdown-label">Minutes</div>
+            </div>
+            <div class="countdown-box">
+                <div class="countdown-num" id="countSecs">00</div>
+                <div class="countdown-label">Seconds</div>
+            </div>
+        </div>
+        <p class="countdown-message">✨ Just 3 more months until our 1-year anniversary… I can't wait to love you longer. ✨</p>
+    </section>
+
+    <!-- ==================== LETTER ==================== -->
+    <section class="letter-section">
+        <h2 class="section-title">A Letter For You</h2>
+        <div class="letter-paper">
+            <p class="letter-date">On our 9th Month Together 💕</p>
+            <p class="letter-greeting">My Dearest Love,</p>
+            <div class="letter-body">
+                <p>Happy 9th anniversary my ever loving companion in life. I love you always and please don't change. I love you for who you are and I will always be with you. Sorry if this gift is too simple for you. I can't help and fall madly inlove with you.</p>
+                
+                <p>Before I always think about that when will this end (because I down myself but not anymore) but now, I really really want to be with you forever. I don't want to leave something that's already my home. I really want to be with you forever.</p>
+                
+                <p>Even though sometimes misunderstandings and arguments, I still want to stay and I really want to fix it right away. Because you are the most important person that I have. My home. My Everything.</p>
+                
+                <p>Always remember that I'm always here. I always support you, Nicole.</p>
+            </div>
+            <div class="letter-closing">
+                <p>Forever yours,</p>
+                <p class="letter-signature">Elijah June L. Daz</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== MUSIC ==================== -->
+    <section class="music-section">
+        <h2 class="music-title">🎵 The <span>Soundtrack</span> of Us 🎵</h2>
+        <div class="music-player">
+            <div class="player-display">
+                <div class="album-cover" id="albumCover">💿</div>
+                <div class="track-details">
+                    <div class="track-title">Kay Tagal Kitang Hinitay</div>
+                    <div class="track-subtitle">For My Lovely Partner.</div>
+                </div>
+            </div>
+            <div class="progress-track">
+                <div class="progress-bar" id="progressBar"></div>
+            </div>
+            <div class="player-controls">
+                <button class="ctrl-btn main-play" id="mainPlayBtn">▶</button>
+            </div>
+        </div>
+        
+        <!-- Local Audio Player -->
+        <audio id="local-audio-player" preload="auto">
+            <source src="files/kay-tagal-kitang-hinintay.mp3" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
+        
+        <!-- Copyright Notice -->
+        <div style="text-align: center; margin-top: 20px; font-size: 0.75rem; color: rgba(255,255,255,0.6);">
+            <p>🎵 "Kay Tagal Kitang Hinintay" by Sponge Cola</p>
+            <p>© All rights reserved. ™ Trademark of respective owners.</p>
+            <p>Used for educational/personal purposes under fair use.</p>
+        </div>
+    </section>
+
+    <!-- ==================== FOOTER ==================== -->
+    <footer class="footer">
+        <div class="footer-hearts">💕💖💕</div>
+        <p class="footer-text">Made with infinite love</p>
+        <p class="footer-text">Here's to forever ✨</p>
+    </footer>
+
+    <!-- ==================== TOAST ==================== -->
+    <div class="toast" id="toast">💗 Playing our song...</div>
+
+    <script>
+        // ===== ELEMENTS =====
+        const scrollDown = document.getElementById('scrollDown');
+        const viewToggle = document.getElementById('viewToggle');
+        const toggleIcon = document.getElementById('toggleIcon');
+        const toggleText = document.getElementById('toggleText');
+        const monthsWrapper = document.getElementById('monthsWrapper');
+        const timelineLine = document.getElementById('timelineLine');
+        const monthCards = document.querySelectorAll('.month-card');
+        const reasonCards = document.querySelectorAll('.reason-card');
+        const letterPaper = document.querySelector('.letter-paper');
+        const toast = document.getElementById('toast');
+        const mainPlayBtn = document.getElementById('mainPlayBtn');
+        const albumCover = document.getElementById('albumCover');
+        const progressBar = document.getElementById('progressBar');
+
+        let isCardView = false;
+        let isMainPlaying = false;
+        let progressInterval = null;
+
+        // ===== SCROLL TO TIMELINE =====
+        scrollDown.addEventListener('click', function() {
+            document.getElementById('timelineSection').scrollIntoView({ behavior: 'smooth' });
+        });
+
+        // ===== VIEW TOGGLE =====
+        viewToggle.addEventListener('click', function() {
+            isCardView = !isCardView;
+            
+            if (isCardView) {
+                monthsWrapper.classList.add('grid-view');
+                timelineLine.style.opacity = '0';
+                toggleIcon.textContent = '📜';
+                toggleText.textContent = 'Switch to Timeline View';
+                monthCards.forEach(function(card) {
+                    card.classList.remove('expanded');
+                });
+            } else {
+                monthsWrapper.classList.remove('grid-view');
+                timelineLine.style.opacity = '1';
+                toggleIcon.textContent = '📋';
+                toggleText.textContent = 'Switch to Card View';
+            }
+        });
+
+        // ===== CARD EXPAND/COLLAPSE =====
+        monthCards.forEach(function(card) {
+            const header = card.querySelector('.card-header');
+            header.addEventListener('click', function() {
+                if (isCardView) {
+                    const willExpand = !card.classList.contains('expanded');
+                    monthCards.forEach(function(otherCard) {
+                        if (otherCard !== card) {
+                            otherCard.classList.remove('expanded');
+                        }
+                    });
+                    if (willExpand) {
+                        card.classList.add('expanded');
+                    } else {
+                        card.classList.remove('expanded');
+                    }
+                }
+            });
+        });
+
+        // ===== SCROLL ANIMATIONS =====
+        function handleScroll() {
+            const triggerBottom = window.innerHeight * 0.85;
+
+            monthCards.forEach(function(card) {
+                const cardTop = card.getBoundingClientRect().top;
+                if (cardTop < triggerBottom) {
+                    card.classList.add('visible');
+                }
+            });
+
+            reasonCards.forEach(function(card) {
+                const cardTop = card.getBoundingClientRect().top;
+                if (cardTop < triggerBottom) {
+                    card.classList.add('visible');
+                }
+            });
+
+            const letterTop = letterPaper.getBoundingClientRect().top;
+            if (letterTop < triggerBottom) {
+                letterPaper.classList.add('visible');
+            }
+        }
+
+        window.addEventListener('scroll', handleScroll);
+        window.addEventListener('load', handleScroll);
+
+        // ===== AUDIO BUTTONS =====
+        document.querySelectorAll('.audio-btn').forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                const wasPlaying = btn.classList.contains('playing');
+                const audioFile = btn.getAttribute('data-audio');
+                
+                // Stop any currently playing audio
+                document.querySelectorAll('.audio-btn').forEach(function(b) {
+                    b.classList.remove('playing');
+                    b.querySelector('.play-icon').textContent = '▶';
+                });
+                
+                // Stop any existing audio
+                if (window.currentAudio) {
+                    window.currentAudio.pause();
+                    window.currentAudio = null;
+                }
+                
+                if (!wasPlaying && audioFile) {
+                    // Create and play new audio
+                    const audio = new Audio(audioFile);
+                    window.currentAudio = audio;
+                    
+                    audio.addEventListener('ended', function() {
+                        btn.classList.remove('playing');
+                        btn.querySelector('.play-icon').textContent = '▶';
+                        window.currentAudio = null;
+                    });
+                    
+                    audio.addEventListener('error', function() {
+                        console.error('Error loading audio file:', audioFile);
+                        showToast('❌ Could not load audio file');
+                        btn.classList.remove('playing');
+                        btn.querySelector('.play-icon').textContent = '▶';
+                        window.currentAudio = null;
+                    });
+                    
+                    audio.play().then(function() {
+                        btn.classList.add('playing');
+                        btn.querySelector('.play-icon').textContent = '⏸';
+                        showToast('🎤 Playing voice message...');
+                    }).catch(function(error) {
+                        console.error('Error playing audio:', error);
+                        showToast('❌ Could not play audio');
+                        window.currentAudio = null;
+                    });
+                }
+            });
+        });
+
+        // ===== SECRET SONG BUTTONS =====
+        document.querySelectorAll('.secret-song-btn').forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.secret-song-btn').forEach(function(b) {
+                    b.classList.remove('playing');
+                });
+                
+                btn.classList.add('playing');
+                showToast('💗 Playing our song...');
+                
+                setTimeout(function() {
+                    btn.classList.remove('playing');
+                }, 3000);
+            });
+        });
+
+        // ===== MAIN MUSIC PLAYER =====
+        const audioPlayer = document.getElementById('local-audio-player');
+        
+        mainPlayBtn.addEventListener('click', function() {
+            if (!audioPlayer) {
+                showToast('❌ Could not find audio player');
+                return;
+            }
+            
+            if (audioPlayer.paused) {
+                audioPlayer.play().then(function() {
+                    mainPlayBtn.textContent = '⏸';
+                    albumCover.classList.add('spinning');
+                    showToast('🎵 Playing our song...');
+                    startProgress();
+                }).catch(function(error) {
+                    console.error('Error playing audio:', error);
+                    showToast('❌ Could not play audio');
+                });
+            } else {
+                audioPlayer.pause();
+                mainPlayBtn.textContent = '▶';
+                albumCover.classList.remove('spinning');
+                stopProgress();
+            }
+        });
+
+        // Update progress bar based on actual audio time
+        audioPlayer.addEventListener('timeupdate', function() {
+            if (audioPlayer.duration) {
+                const progress = (audioPlayer.currentTime / audioPlayer.duration) * 100;
+                progressBar.style.width = progress + '%';
+            }
+        });
+
+        audioPlayer.addEventListener('ended', function() {
+            mainPlayBtn.textContent = '▶';
+            albumCover.classList.remove('spinning');
+            stopProgress();
+            showToast('🎵 Song ended - Play again?');
+        });
+
+        audioPlayer.addEventListener('error', function() {
+            console.error('Audio error:', audioPlayer.error);
+            showToast('❌ Error loading audio file');
+        });
+
+        function startProgress() {
+            // Progress is now handled by audio timeupdate event
+            // No need for simulated animation
+        }
+
+        function stopProgress() {
+            // Progress is now handled by audio timeupdate event
+            // No need to stop simulated animation
+        }
+
+        // ===== TOAST =====
+        function showToast(message) {
+            toast.textContent = message;
+            toast.classList.add('show');
+            setTimeout(function() {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        // ===== COUNTDOWN TO APRIL 26, 2026 =====
+        function updateCountdown() {
+            const anniversary = new Date('2026-04-26T00:00:00');
+            const now = new Date();
+            const diff = anniversary - now;
+            
+            if (diff > 0) {
+                const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                const secs = Math.floor((diff % (1000 * 60)) / 1000);
+                
+                document.getElementById('countDays').textContent = String(days).padStart(2, '0');
+                document.getElementById('countHours').textContent = String(hours).padStart(2, '0');
+                document.getElementById('countMins').textContent = String(mins).padStart(2, '0');
+                document.getElementById('countSecs').textContent = String(secs).padStart(2, '0');
+            } else {
+                document.getElementById('countDays').textContent = '00';
+                document.getElementById('countHours').textContent = '00';
+                document.getElementById('countMins').textContent = '00';
+                document.getElementById('countSecs').textContent = '00';
+            }
+        }
+
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+
+        // ===== PARALLAX EFFECT =====
+        window.addEventListener('scroll', function() {
+            const scrollY = window.scrollY;
+            const heroBg = document.querySelector('.hero-bg');
+            if (heroBg && scrollY < window.innerHeight) {
+                heroBg.style.transform = 'translateY(' + (scrollY * 0.4) + 'px)';
+            }
+        });
+    </script>
+</body>
+</html>
