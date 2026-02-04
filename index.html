@@ -1293,26 +1293,38 @@
             </div>
         </div>
         <p class="countdown-message">✨ Just 3 more months until our 1-year anniversary… I can't wait to love you longer. ✨</p>
-        
-        <!-- Secret Input Section -->
-        <div class="secret-input-section">
-            <input type="text" class="secret-input" id="secretInput" placeholder="Enter the magic numbers..." maxlength="3">
-        </div>
     </section>
 
     <!-- Secret Modal -->
     <div class="modal" id="secretModal">
         <div class="modal-content">
             <button class="modal-close" id="modalClose">×</button>
-            <h2 style="color: #ec4899; margin-bottom: 20px;">🎉 You Found It! 🎉</h2>
-            <p style="color: #374151; line-height: 1.6; margin-bottom: 20px;">
-                The magic numbers 358 have unlocked something special...
+            <h2 style="color: #ec4899; margin-bottom: 20px;">💕 A Special Question 💕</h2>
+            
+            <!-- Valentine Image -->
+            <div style="margin-bottom: 25px;">
+                <img src="files/valentine-asker.jpg" alt="Valentine Proposal" style="max-width: 100%; height: auto; border-radius: 12px; box-shadow: 0 10px 30px rgba(236, 72, 153, 0.2);">
+            </div>
+            
+            <!-- Question -->
+            <p style="color: #374151; font-size: 1.1rem; margin-bottom: 25px; font-weight: 500;">
+                Will you be my Valentine? 💝
             </p>
-            <div id="modalContent">
-                <!-- Modal content will be added here -->
+            
+            <!-- Yes/No Buttons -->
+            <div style="display: flex; gap: 15px; justify-content: center;">
+                <button id="yesBtn" style="padding: 12px 30px; background: linear-gradient(135deg, #ec4899, #8b5cf6); color: white; border: none; border-radius: 25px; font-size: 1rem; cursor: pointer; transition: transform 0.3s ease;">
+                    Yes! 💕
+                </button>
+                <button id="noBtn" style="padding: 12px 30px; background: #f3f4f6; color: #6b7280; border: none; border-radius: 25px; font-size: 1rem; cursor: pointer; transition: transform 0.3s ease;">
+                    No 💔
+                </button>
             </div>
         </div>
     </div>
+
+    <!-- Confetti Canvas -->
+    <canvas id="confettiCanvas" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 9999; display: none;"></canvas>
 
     <!-- ==================== LETTER ==================== -->
     <section class="letter-section">
@@ -1374,6 +1386,11 @@
         <div class="footer-hearts">💕💖💕</div>
         <p class="footer-text">Made with infinite love</p>
         <p class="footer-text">Here's to forever ✨</p>
+        
+        <!-- Secret Input Section -->
+        <div class="secret-input-section">
+            <input type="text" class="secret-input" id="secretInput" placeholder="Enter the magic numbers..." maxlength="3">
+        </div>
     </footer>
 
     <!-- ==================== TOAST ==================== -->
@@ -1644,8 +1661,8 @@
                 const number = allNumbers[index];
                 const digits = String(number).padStart(2, '0').split('');
                 
-                // Check if any digit is 8, 3, or 5
-                const shouldFlash = digits.some(digit => ['8', '3', '5'].includes(digit));
+                // Check if the number is exactly 8, 5, or 3 (not containing them)
+                const shouldFlash = [8, 5, 3].includes(number);
                 
                 if (shouldFlash) {
                     element.classList.add('flash');
@@ -1659,7 +1676,10 @@
         const secretInput = document.getElementById('secretInput');
         const secretModal = document.getElementById('secretModal');
         const modalClose = document.getElementById('modalClose');
-        const modalContent = document.getElementById('modalContent');
+        const yesBtn = document.getElementById('yesBtn');
+        const noBtn = document.getElementById('noBtn');
+        const confettiCanvas = document.getElementById('confettiCanvas');
+        const ctx = confettiCanvas.getContext('2d');
 
         secretInput.addEventListener('input', function() {
             const value = this.value;
@@ -1679,14 +1699,84 @@
             }
         });
 
+        yesBtn.addEventListener('click', function() {
+            showToast('🎉 Yay! I love you! 💕');
+            launchConfetti();
+            setTimeout(() => hideModal(), 2000);
+        });
+
+        noBtn.addEventListener('click', function() {
+            showToast('💔 Oh no... maybe next time? 💕');
+            noBtn.textContent = 'Try Again? 💝';
+            noBtn.style.background = 'linear-gradient(135deg, #ec4899, #8b5cf6)';
+            noBtn.style.color = 'white';
+        });
+
         function showModal() {
             secretModal.classList.add('show');
-            // Modal content will be set when you provide it
-            modalContent.innerHTML = '<p style="color: #6b7280; font-style: italic;">Content coming soon...</p>';
         }
 
         function hideModal() {
             secretModal.classList.remove('show');
+            // Reset no button
+            noBtn.textContent = 'No 💔';
+            noBtn.style.background = '#f3f4f6';
+            noBtn.style.color = '#6b7280';
+        }
+
+        // ===== CONFETTI ANIMATION =====
+        function launchConfetti() {
+            confettiCanvas.style.display = 'block';
+            confettiCanvas.width = window.innerWidth;
+            confettiCanvas.height = window.innerHeight;
+
+            const confetti = [];
+            const colors = ['#ec4899', '#8b5cf6', '#fbbf24', '#34d399', '#60a5fa'];
+
+            // Create confetti pieces
+            for (let i = 0; i < 150; i++) {
+                confetti.push({
+                    x: Math.random() * confettiCanvas.width,
+                    y: Math.random() * confettiCanvas.height - confettiCanvas.height,
+                    vx: Math.random() * 6 - 3,
+                    vy: Math.random() * 3 + 2,
+                    size: Math.random() * 8 + 5,
+                    color: colors[Math.floor(Math.random() * colors.length)],
+                    angle: Math.random() * 360,
+                    angleSpeed: Math.random() * 10 - 5
+                });
+            }
+
+            function animate() {
+                ctx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
+
+                confetti.forEach((piece, index) => {
+                    piece.x += piece.vx;
+                    piece.y += piece.vy;
+                    piece.vy += 0.1; // gravity
+                    piece.angle += piece.angleSpeed;
+
+                    ctx.save();
+                    ctx.translate(piece.x, piece.y);
+                    ctx.rotate(piece.angle * Math.PI / 180);
+                    ctx.fillStyle = piece.color;
+                    ctx.fillRect(-piece.size / 2, -piece.size / 2, piece.size, piece.size);
+                    ctx.restore();
+
+                    // Remove confetti that falls off screen
+                    if (piece.y > confettiCanvas.height) {
+                        confetti.splice(index, 1);
+                    }
+                });
+
+                if (confetti.length > 0) {
+                    requestAnimationFrame(animate);
+                } else {
+                    confettiCanvas.style.display = 'none';
+                }
+            }
+
+            animate();
         }
 
         updateCountdown();
