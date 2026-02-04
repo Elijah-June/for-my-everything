@@ -1299,7 +1299,7 @@
     <div class="modal" id="secretModal">
         <div class="modal-content">
             <button class="modal-close" id="modalClose">×</button>
-            <h2 style="color: #ec4899; margin-bottom: 20px;">💕 A Special Question 💕</h2>
+            <h2 style="color: #ec4899; margin-bottom: 20px;">💕 You Are Stuck With Me Now 💕</h2>
             
             <!-- Valentine Image -->
             <div style="margin-bottom: 25px;">
@@ -1316,7 +1316,7 @@
                 <button id="yesBtn" style="padding: 12px 30px; background: linear-gradient(135deg, #ec4899, #8b5cf6); color: white; border: none; border-radius: 25px; font-size: 1rem; cursor: pointer; transition: transform 0.3s ease;">
                     Yes! 💕
                 </button>
-                <button id="noBtn" style="padding: 12px 30px; background: #f3f4f6; color: #6b7280; border: none; border-radius: 25px; font-size: 1rem; cursor: pointer; transition: transform 0.3s ease;">
+                <button id="noBtn" style="padding: 12px 30px; background: #f3f4f6; color: #6b7280; border: none; border-radius: 25px; font-size: 1rem; cursor: pointer; transition: all 0.3s ease;">
                     No 💔
                 </button>
             </div>
@@ -1389,7 +1389,7 @@
         
         <!-- Secret Input Section -->
         <div class="secret-input-section">
-            <input type="text" class="secret-input" id="secretInput" placeholder="Enter the magic numbers..." maxlength="3">
+            <input type="text" class="secret-input" id="secretInput" placeholder="" maxlength="3">
         </div>
     </footer>
 
@@ -1706,10 +1706,17 @@
         });
 
         noBtn.addEventListener('click', function() {
-            showToast('💔 Oh no... maybe next time? 💕');
-            noBtn.textContent = 'Try Again? 💝';
-            noBtn.style.background = 'linear-gradient(135deg, #ec4899, #8b5cf6)';
-            noBtn.style.color = 'white';
+            // Make no button disappear with fade out effect
+            noBtn.style.transition = 'all 0.5s ease';
+            noBtn.style.opacity = '0';
+            noBtn.style.transform = 'scale(0.8)';
+            noBtn.style.pointerEvents = 'none';
+            
+            setTimeout(() => {
+                noBtn.style.display = 'none';
+            }, 500);
+            
+            showToast('💔 Too bad... you are stuck with me anyway! 💕');
         });
 
         function showModal() {
@@ -1722,6 +1729,10 @@
             noBtn.textContent = 'No 💔';
             noBtn.style.background = '#f3f4f6';
             noBtn.style.color = '#6b7280';
+            noBtn.style.opacity = '1';
+            noBtn.style.transform = 'scale(1)';
+            noBtn.style.pointerEvents = 'auto';
+            noBtn.style.display = 'block';
         }
 
         // ===== CONFETTI ANIMATION =====
