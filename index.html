@@ -651,25 +651,31 @@
 
         .winner-content {
             position: relative;
-            max-width: 90%;
-            max-height: 80vh;
+            width: min(900px, 92vw);
+            height: min(520px, 78vh);
             border: 8px solid white;
             border-radius: 20px;
             box-shadow: 0 0 50px rgba(0,0,0,0.5);
             overflow: hidden;
+            background: white;
             animation: popIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .winner-content img {
             width: 100%;
-            height: auto;
+            height: 100%;
             display: block;
+            object-fit: contain;
+            object-position: center;
         }
 
         .winner-close {
             position: absolute;
-            top: -20px;
-            right: -20px;
+            top: 12px;
+            right: 12px;
             background: #ec4899;
             color: white;
             width: 45px;
@@ -1724,7 +1730,7 @@
         ];
 
         let playerPos = { x: 7, y: 0 };
-        const PLAYER_END = { x: 7, y: 14 };
+        const PLAYER_END = { x: 7, y: 7 };
         let stepsTaken = 0;
         let mazeSolved = false;
         let revealOpacity = 1.0;
@@ -1753,8 +1759,14 @@
         function drawMaze() {
             mazeCtx.clearRect(0, 0, mazeCanvas.width, mazeCanvas.height);
             
-            // Background Image
+            // Background Image (always visible)
+            mazeCtx.globalAlpha = 1;
             mazeCtx.drawImage(HIDDEN_IMAGE, 0, 0, mazeCanvas.width, mazeCanvas.height);
+
+            // Dim overlay so the image starts subtle and slowly becomes clearer
+            // (as revealOpacity decreases)
+            mazeCtx.fillStyle = `rgba(255, 255, 255, ${0.55 * revealOpacity})`;
+            mazeCtx.fillRect(0, 0, mazeCanvas.width, mazeCanvas.height);
             
             // Draw walls with smooth reveal opacity
             mazeCtx.fillStyle = `rgba(236, 72, 153, ${revealOpacity})`;
@@ -1787,7 +1799,8 @@
 
         function smoothReveal() {
             if (revealOpacity > 0) {
-                revealOpacity -= 0.02;
+                revealOpacity -= 0.006;
+                if (revealOpacity < 0) revealOpacity = 0;
                 drawMaze();
                 requestAnimationFrame(smoothReveal);
             } else {
