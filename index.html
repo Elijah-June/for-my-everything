@@ -36,13 +36,6 @@
             overflow: hidden;
         }
 
-        /*
-        ┌─────────────────────────────────────────────┐
-        │  🖼️ HERO IMAGE                              │
-        │  Replace 'hero-image.jpg' with your photo  │
-        │  Place the file in the same folder         │
-        └─────────────────────────────────────────────┘
-        */
         .hero-bg {
             position: absolute;
             inset: 0;
@@ -229,7 +222,6 @@
             transition: all 0.3s ease;
         }
 
-        /* Grid view specific styles */
         .months-wrapper.grid-view .month-card {
             display: inline-block;
             width: 100%;
@@ -238,7 +230,6 @@
             transition: transform 0.25s ease, box-shadow 0.25s ease;
         }
 
-        /* Specific styles for expanded cards in grid view */
         .months-wrapper.grid-view .month-card.expanded {
             box-shadow: 0 25px 60px rgba(190,24,93,0.25) !important;
         }
@@ -330,13 +321,6 @@
             opacity: 1;
         }
 
-        /*
-        ┌─────────────────────────────────────────────────┐
-        │  🖼️ MONTH IMAGES                                │
-        │  Save images as: month-1.jpg to month-9.jpg    │
-        │  Place files in the same folder as HTML        │
-        └─────────────────────────────────────────────────┘
-        */
         .month-image {
             width: 100%;
             height: auto;
@@ -355,7 +339,6 @@
             overflow: hidden;
         }
 
-        /* Keep fixed height for Grid View */
         .months-wrapper.grid-view .month-image {
             height: 200px;
             min-height: 200px;
@@ -381,13 +364,6 @@
             line-height: 1.7;
         }
 
-        /*
-        ┌─────────────────────────────────────────────────┐
-        │  🎤 AUDIO WHISPERS                              │
-        │  Save as: whisper-1.mp3 to whisper-9.mp3       │
-        │  Place files in the same folder as HTML        │
-        └─────────────────────────────────────────────────┘
-        */
         .audio-btn {
             display: flex;
             align-items: center;
@@ -441,13 +417,6 @@
             color: white;
         }
 
-        /*
-        ┌─────────────────────────────────────────────────┐
-        │  🎵 SECRET SONG                                 │
-        │  Save as: our-song.mp3                         │
-        │  Place file in the same folder as HTML         │
-        └─────────────────────────────────────────────────┘
-        */
         .secret-song-btn {
             display: inline-flex;
             align-items: center;
@@ -619,7 +588,6 @@
             }
         }
 
-        /* Random textbox and modal styles */
         .secret-input-section {
             margin-top: 30px;
             text-align: center;
@@ -675,6 +643,49 @@
             text-align: center;
             animation: slideUp 0.4s ease;
             position: relative;
+        }
+
+        #winnerModal {
+            z-index: 2000;
+        }
+
+        .winner-content {
+            position: relative;
+            max-width: 90%;
+            max-height: 80vh;
+            border: 8px solid white;
+            border-radius: 20px;
+            box-shadow: 0 0 50px rgba(0,0,0,0.5);
+            overflow: hidden;
+            animation: popIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .winner-content img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .winner-close {
+            position: absolute;
+            top: -20px;
+            right: -20px;
+            background: #ec4899;
+            color: white;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            border: 4px solid white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        @keyframes popIn {
+            from { transform: scale(0.5); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
         }
 
         .modal-close {
@@ -781,14 +792,6 @@
         }
 
         /* ========== MUSIC SECTION ========== */
-        /*
-        ┌─────────────────────────────────────────────────┐
-        │  🎵 MUSIC PLAYER                                │
-        │  Option 1: Embed Spotify/Apple Music playlist  │
-        │  Option 2: Save songs as song-1.mp3, etc.      │
-        │  Place files in the same folder as HTML        │
-        └─────────────────────────────────────────────────┘
-        */
         .music-section {
             padding: 60px 20px;
             background: linear-gradient(135deg, #1a1a2e, #16213e);
@@ -954,6 +957,104 @@
             opacity: 1;
         }
 
+        /* ========== MAZE MODAL STYLES ========== */
+        .maze-modal .modal-content {
+            background: linear-gradient(135deg, #fff5f8, #fce7f3);
+            padding: 20px;
+            border-radius: 20px;
+            max-width: 95%;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .maze-title {
+            color: #ec4899;
+            font-size: 1.3rem;
+            margin-bottom: 5px;
+        }
+
+        .maze-subtitle {
+            color: #6b7280;
+            font-size: 0.85rem;
+            margin-bottom: 15px;
+        }
+
+        .maze-container {
+            position: relative;
+            width: 100%;
+            max-width: 450px;
+            margin: 0 auto;
+            touch-action: manipulation;
+        }
+
+        #mazeCanvas {
+            width: 100%;
+            height: auto;
+            border: 4px solid #ec4899;
+            border-radius: 12px;
+            background: #fff;
+            box-shadow: 0 8px 30px rgba(236,72,153,0.3);
+        }
+
+        /* REVERSE T D-PAD CONTROLS */
+        .dpad {
+            display: grid;
+            grid-template-columns: repeat(3, 60px);
+            grid-template-rows: repeat(2, 60px);
+            gap: 10px;
+            justify-content: center;
+            margin-top: 25px;
+            padding-bottom: 10px;
+        }
+
+        .dpad-btn {
+            width: 60px;
+            height: 60px;
+            font-size: 1.5rem;
+            background: white;
+            color: #ec4899;
+            border: 2px solid #ec4899;
+            border-radius: 12px;
+            cursor: pointer;
+            box-shadow: 0 4px 0px #f9a8d4;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.1s;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .dpad-btn:active {
+            transform: translateY(4px);
+            box-shadow: 0 0px 0px #f9a8d4;
+            background: #fdf2f8;
+        }
+
+        /* Button Positions for Reverse T */
+        .dpad-btn.up { grid-column: 2; grid-row: 1; }
+        .dpad-btn.left { grid-column: 1; grid-row: 2; }
+        .dpad-btn.down { grid-column: 2; grid-row: 2; }
+        .dpad-btn.right { grid-column: 3; grid-row: 2; }
+
+        .maze-message {
+            margin-top: 20px;
+            color: #be185d;
+            text-align: center;
+            font-style: italic;
+            font-size: 1.1rem;
+            font-weight: bold;
+            display: none;
+            animation: fadeIn 0.8s ease;
+        }
+
+        .maze-progress {
+            margin-top: 10px;
+            text-align: center;
+            color: #9ca3af;
+            font-size: 0.8rem;
+        }
+
         /* ========== ANIMATIONS ========== */
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(20px); }
@@ -1014,6 +1115,15 @@
             .letter-paper::before {
                 left: 15px;
             }
+            
+            .dpad-btn {
+                width: 55px;
+                height: 55px;
+            }
+            .dpad {
+                grid-template-columns: repeat(3, 55px);
+                grid-template-rows: repeat(2, 55px);
+            }
         }
     </style>
 </head>
@@ -1046,12 +1156,6 @@
             <div class="timeline-line" id="timelineLine"></div>
             <div class="months-wrapper" id="monthsWrapper">
 
-                <!-- ============================================
-                     🖼️ MONTH IMAGES INSTRUCTIONS:
-                     Save images as: month-1.jpg to month-9.jpg
-                     Place all files in the same folder as HTML
-                     ============================================ -->
-
                 <!-- MONTH 1 - May 2025 -->
                 <article class="month-card">
                     <div class="card-header">
@@ -1059,11 +1163,9 @@
                         <span class="expand-icon">⬇️</span>
                     </div>
                     <div class="card-body">
-                        <!-- 👇 REPLACE: month-1.jpg -->
                         <div class="month-image" style="background-image: url('files/month-1.jpg');">
                         </div>
                         <p class="memory-text">"I was so nervous, but the second you smiled, the rest of the world just disappeared. My life will change, and infact it changed me. I have my home now."</p>
-                        <!-- 👇 REPLACE: whisper-1.mp3 -->
                         <button class="audio-btn" data-audio="files/whisper-1.m4a">
                             <span class="play-icon">▶</span>
                             <span class="audio-text">🎤 "The first time I met you, I never thought I'd be here now."</span>
@@ -1078,7 +1180,6 @@
                         <span class="expand-icon">⬇️</span>
                     </div>
                     <div class="card-body">
-                        <!-- 👇 REPLACE: month-2.jpg -->
                         <div class="month-image" style="background-image: url('files/month-2.jpg');">
                         </div>
                         <p class="memory-text">"I was hopeless and down at first yet here we are."</p>
@@ -1096,7 +1197,6 @@
                         <span class="expand-icon">⬇️</span>
                     </div>
                     <div class="card-body">
-                        <!-- 👇 REPLACE: month-3.jpg -->
                         <div class="month-image" style="background-image: url('files/month-3.jpg');">
                         </div>
                         <p class="memory-text">"Through thick and thin, I will always be with you."</p>
@@ -1114,7 +1214,6 @@
                         <span class="expand-icon">⬇️</span>
                     </div>
                     <div class="card-body">
-                        <!-- 👇 REPLACE: month-4.jpg -->
                         <div class="month-image" style="background-image: url('files/month-4.jpg');">
                         </div>
                         <p class="memory-text">"You changed me, you made me a better person."</p>
@@ -1132,7 +1231,6 @@
                         <span class="expand-icon">⬇️</span>
                     </div>
                     <div class="card-body">
-                        <!-- 👇 REPLACE: month-5.jpg -->
                         <div class="month-image" style="background-image: url('files/month-5.jpg');">
                         </div>
                         <p class="memory-text">"Even I'm down, I always have you."</p>
@@ -1150,7 +1248,6 @@
                         <span class="expand-icon">⬇️</span>
                     </div>
                     <div class="card-body">
-                        <!-- 👇 REPLACE: month-6.jpg -->
                         <div class="month-image" style="background-image: url('files/month-6.jpg');">
                         </div>
                         <p class="memory-text">"I really wish I could be near to you"</p>
@@ -1168,7 +1265,6 @@
                         <span class="expand-icon">⬇️</span>
                     </div>
                     <div class="card-body">
-                        <!-- 👇 REPLACE: month-7.jpg -->
                         <div class="month-image" style="background-image: url('files/month-7.jpg');">
                         </div>
                         <p class="memory-text">"And you're always there. To lend a hand."</p>
@@ -1178,6 +1274,7 @@
                         </button>
                     </div>
                 </article>
+
                 <!-- MONTH 8 - December 2025 -->
                 <article class="month-card">
                     <div class="card-header">
@@ -1185,7 +1282,6 @@
                         <span class="expand-icon">⬇️</span>
                     </div>
                     <div class="card-body">
-                        <!-- 👇 REPLACE: month-8.jpg -->
                         <div class="month-image" style="background-image: url('files/month-8.jpg');">
                         </div>
                         <p class="memory-text">"That Christmas was Unique. Because it has you in it."</p>
@@ -1203,7 +1299,6 @@
                         <span class="expand-icon">⬇️</span>
                     </div>
                     <div class="card-body">
-                        <!-- 👇 REPLACE: month-9.jpg -->
                         <div class="month-image" style="background-image: url('files/month-9.jpg');">
                         </div>
                         <p class="memory-text">"To the world, you are one person."</p>
@@ -1295,37 +1390,6 @@
         <p class="countdown-message">✨ Just 3 more months until our 1-year anniversary… I can't wait to love you longer. ✨</p>
     </section>
 
-    <!-- Secret Modal -->
-    <div class="modal" id="secretModal">
-        <div class="modal-content">
-            <button class="modal-close" id="modalClose">×</button>
-            <h2 style="color: #ec4899; margin-bottom: 20px;">💕 You Are Stuck With Me Now 💕</h2>
-            
-            <!-- Valentine Image -->
-            <div style="margin-bottom: 25px;">
-                <img src="files/valentine-asker.jpg" alt="Valentine Proposal" style="max-width: 100%; height: auto; border-radius: 12px; box-shadow: 0 10px 30px rgba(236, 72, 153, 0.2);">
-            </div>
-            
-            <!-- Question -->
-            <p style="color: #374151; font-size: 1.1rem; margin-bottom: 25px; font-weight: 500;">
-                Will you be my Valentine? 💝
-            </p>
-            
-            <!-- Yes/No Buttons -->
-            <div style="display: flex; gap: 15px; justify-content: center;">
-                <button id="yesBtn" style="padding: 12px 30px; background: linear-gradient(135deg, #ec4899, #8b5cf6); color: white; border: none; border-radius: 25px; font-size: 1rem; cursor: pointer; transition: transform 0.3s ease;">
-                    Yes! 💕
-                </button>
-                <button id="noBtn" style="padding: 12px 30px; background: #f3f4f6; color: #6b7280; border: none; border-radius: 25px; font-size: 1rem; cursor: pointer; transition: all 0.3s ease;">
-                    No 💔
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Confetti Canvas -->
-    <canvas id="confettiCanvas" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 9999; display: none;"></canvas>
-
     <!-- ==================== LETTER ==================== -->
     <section class="letter-section">
         <h2 class="section-title">A Letter For You</h2>
@@ -1389,12 +1453,50 @@
         
         <!-- Secret Input Section -->
         <div class="secret-input-section">
-            <input type="text" class="secret-input" id="secretInput" placeholder="" maxlength="3">
+            <input type="text" class="secret-input" id="secretInput" placeholder="Enter secret code" maxlength="3">
         </div>
     </footer>
 
     <!-- ==================== TOAST ==================== -->
     <div class="toast" id="toast">💗 Playing our song...</div>
+
+    <!-- ==================== MAZE MODAL ==================== -->
+    <div class="modal maze-modal" id="mazeModal">
+        <div class="modal-content">
+            <button class="modal-close" id="mazeClose">×</button>
+            
+            <h2 class="maze-title">🧩 Find Your Way to Me ❤️</h2>
+            <p class="maze-subtitle">Navigate the daisy to reveal our memory...</p>
+            
+            <div class="maze-container">
+                <canvas id="mazeCanvas" width="450" height="450"></canvas>
+            </div>
+            
+            <p class="maze-progress" id="mazeProgress">Steps taken: 0</p>
+            
+            <!-- REVERSE T DPAD CONTROLS -->
+            <div class="dpad">
+                <button class="dpad-btn up" data-dir="up">▲</button>
+                <button class="dpad-btn left" data-dir="left">◀</button>
+                <button class="dpad-btn down" data-dir="down">▼</button>
+                <button class="dpad-btn right" data-dir="right">▶</button>
+            </div>
+            
+            <p class="maze-message" id="mazeMessage">
+                💖 Every petal led me to you. Forever yours. 💕
+            </p>
+        </div>
+    </div>
+
+    <div class="modal" id="winnerModal">
+        <div class="winner-content">
+            <button class="winner-close" id="winnerClose">✖</button>
+            <img id="winningImage" src="files/for_my_maze.png" alt="Memory">
+        </div>
+    </div>
+
+    <!-- Confetti Canvas -->
+    <canvas id="confettiCanvas" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 9999; display: none;"></canvas>
 
     <script>
         // ===== ELEMENTS =====
@@ -1494,20 +1596,17 @@
                 const wasPlaying = btn.classList.contains('playing');
                 const audioFile = btn.getAttribute('data-audio');
                 
-                // Stop any currently playing audio
                 document.querySelectorAll('.audio-btn').forEach(function(b) {
                     b.classList.remove('playing');
                     b.querySelector('.play-icon').textContent = '▶';
                 });
                 
-                // Stop any existing audio
                 if (window.currentAudio) {
                     window.currentAudio.pause();
                     window.currentAudio = null;
                 }
                 
                 if (!wasPlaying && audioFile) {
-                    // Create and play new audio
                     const audio = new Audio(audioFile);
                     window.currentAudio = audio;
                     
@@ -1518,7 +1617,6 @@
                     });
                     
                     audio.addEventListener('error', function() {
-                        console.error('Error loading audio file:', audioFile);
                         showToast('❌ Could not load audio file');
                         btn.classList.remove('playing');
                         btn.querySelector('.play-icon').textContent = '▶';
@@ -1530,7 +1628,6 @@
                         btn.querySelector('.play-icon').textContent = '⏸';
                         showToast('🎤 Playing voice message...');
                     }).catch(function(error) {
-                        console.error('Error playing audio:', error);
                         showToast('❌ Could not play audio');
                         window.currentAudio = null;
                     });
@@ -1538,78 +1635,30 @@
             });
         });
 
-        // ===== SECRET SONG BUTTONS =====
-        document.querySelectorAll('.secret-song-btn').forEach(function(btn) {
-            btn.addEventListener('click', function() {
-                document.querySelectorAll('.secret-song-btn').forEach(function(b) {
-                    b.classList.remove('playing');
-                });
-                
-                btn.classList.add('playing');
-                showToast('💗 Playing our song...');
-                
-                setTimeout(function() {
-                    btn.classList.remove('playing');
-                }, 3000);
-            });
-        });
-
         // ===== MAIN MUSIC PLAYER =====
         const audioPlayer = document.getElementById('local-audio-player');
         
         mainPlayBtn.addEventListener('click', function() {
-            if (!audioPlayer) {
-                showToast('❌ Could not find audio player');
-                return;
-            }
-            
+            if (!audioPlayer) return;
             if (audioPlayer.paused) {
                 audioPlayer.play().then(function() {
                     mainPlayBtn.textContent = '⏸';
                     albumCover.classList.add('spinning');
                     showToast('🎵 Playing our song...');
-                    startProgress();
-                }).catch(function(error) {
-                    console.error('Error playing audio:', error);
-                    showToast('❌ Could not play audio');
                 });
             } else {
                 audioPlayer.pause();
                 mainPlayBtn.textContent = '▶';
                 albumCover.classList.remove('spinning');
-                stopProgress();
             }
         });
 
-        // Update progress bar based on actual audio time
         audioPlayer.addEventListener('timeupdate', function() {
             if (audioPlayer.duration) {
                 const progress = (audioPlayer.currentTime / audioPlayer.duration) * 100;
                 progressBar.style.width = progress + '%';
             }
         });
-
-        audioPlayer.addEventListener('ended', function() {
-            mainPlayBtn.textContent = '▶';
-            albumCover.classList.remove('spinning');
-            stopProgress();
-            showToast('🎵 Song ended - Play again?');
-        });
-
-        audioPlayer.addEventListener('error', function() {
-            console.error('Audio error:', audioPlayer.error);
-            showToast('❌ Error loading audio file');
-        });
-
-        function startProgress() {
-            // Progress is now handled by audio timeupdate event
-            // No need for simulated animation
-        }
-
-        function stopProgress() {
-            // Progress is now handled by audio timeupdate event
-            // No need to stop simulated animation
-        }
 
         // ===== TOAST =====
         function showToast(message) {
@@ -1620,7 +1669,7 @@
             }, 3000);
         }
 
-        // ===== COUNTDOWN TO APRIL 26, 2026 =====
+        // ===== COUNTDOWN =====
         function updateCountdown() {
             const anniversary = new Date('2026-04-26T00:00:00');
             const now = new Date();
@@ -1632,175 +1681,197 @@
                 const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
                 const secs = Math.floor((diff % (1000 * 60)) / 1000);
 
-                // Update display
                 document.getElementById('countDays').textContent = String(days).padStart(2, '0');
                 document.getElementById('countHours').textContent = String(hours).padStart(2, '0');
                 document.getElementById('countMins').textContent = String(mins).padStart(2, '0');
                 document.getElementById('countSecs').textContent = String(secs).padStart(2, '0');
+            }
+        }
+        setInterval(updateCountdown, 1000);
 
-                // Check for flashing numbers (8, 3, or 5)
-                checkFlashingNumbers(days, hours, mins, secs);
-            } else {
-                document.getElementById('countDays').textContent = '00';
-                document.getElementById('countHours').textContent = '00';
-                document.getElementById('countMins').textContent = '00';
-                document.getElementById('countSecs').textContent = '00';
+        // ===== MAZE GAME LOGIC =====
+        const mazeModal = document.getElementById('mazeModal');
+        const mazeClose = document.getElementById('mazeClose');
+        const winnerModal = document.getElementById('winnerModal');
+        const winnerClose = document.getElementById('winnerClose');
+        const mazeCanvas = document.getElementById('mazeCanvas');
+        const mazeCtx = mazeCanvas.getContext('2d');
+        const dpadButtons = document.querySelectorAll('.dpad-btn');
+        const mazeMessage = document.getElementById('mazeMessage');
+        const mazeProgress = document.getElementById('mazeProgress');
+        const secretInput = document.getElementById('secretInput');
+
+        const MAZE_SIZE = 15; 
+        const CELL_SIZE = mazeCanvas.width / MAZE_SIZE;
+        
+        // DAISY SHAPED MAZE (1 = wall, 0 = path)
+        const daisyLayout = [
+            [1,1,1,1,1,1,0,0,0,1,1,1,1,1,1],
+            [1,1,1,1,0,0,0,0,0,0,0,1,1,1,1],
+            [1,1,1,0,0,1,1,1,1,1,0,0,1,1,1],
+            [1,1,0,0,1,0,0,0,0,0,1,0,0,1,1],
+            [1,0,0,1,0,0,1,1,1,0,0,1,0,0,1],
+            [1,0,1,0,0,1,0,0,0,1,0,0,1,0,1],
+            [0,0,1,0,1,0,0,1,0,0,1,0,1,0,0],
+            [0,0,1,0,0,0,1,1,1,0,0,0,1,0,0],
+            [0,0,1,0,1,0,0,1,0,0,1,0,1,0,0],
+            [1,0,1,0,0,1,0,0,0,1,0,0,1,0,1],
+            [1,0,0,1,0,0,1,1,1,0,0,1,0,0,1],
+            [1,1,0,0,1,0,0,0,0,0,1,0,0,1,1],
+            [1,1,1,0,0,1,1,1,1,1,0,0,1,1,1],
+            [1,1,1,1,0,0,0,0,0,0,0,1,1,1,1],
+            [1,1,1,1,1,1,0,0,0,1,1,1,1,1,1]
+        ];
+
+        let playerPos = { x: 7, y: 0 };
+        const PLAYER_END = { x: 7, y: 14 };
+        let stepsTaken = 0;
+        let mazeSolved = false;
+        let revealOpacity = 1.0;
+
+        const HIDDEN_IMAGE = new Image();
+        HIDDEN_IMAGE.src = "files/for_my_maze.png";
+
+        const FOG_LAYER = document.createElement('canvas');
+        FOG_LAYER.width = mazeCanvas.width;
+        FOG_LAYER.height = mazeCanvas.height;
+        const fogCtx = FOG_LAYER.getContext('2d');
+
+        function drawFog() {
+            fogCtx.globalCompositeOperation = 'source-over';
+            fogCtx.fillStyle = 'rgba(255, 245, 248, 0.9)';
+            fogCtx.fillRect(0, 0, FOG_LAYER.width, FOG_LAYER.height);
+        }
+
+        function eraseFogAt(x, y) {
+            fogCtx.globalCompositeOperation = 'destination-out';
+            fogCtx.beginPath();
+            fogCtx.arc(x * CELL_SIZE + CELL_SIZE/2, y * CELL_SIZE + CELL_SIZE/2, CELL_SIZE * 1.5, 0, Math.PI * 2);
+            fogCtx.fill();
+        }
+
+        function drawMaze() {
+            mazeCtx.clearRect(0, 0, mazeCanvas.width, mazeCanvas.height);
+            
+            // Background Image
+            mazeCtx.drawImage(HIDDEN_IMAGE, 0, 0, mazeCanvas.width, mazeCanvas.height);
+            
+            // Draw walls with smooth reveal opacity
+            mazeCtx.fillStyle = `rgba(236, 72, 153, ${revealOpacity})`;
+            for (let y = 0; y < MAZE_SIZE; y++) {
+                for (let x = 0; x < MAZE_SIZE; x++) {
+                    if (daisyLayout[y][x] === 1) {
+                        mazeCtx.fillRect(x * CELL_SIZE, y * CELL_SIZE, CELL_SIZE, CELL_SIZE);
+                    }
+                }
+            }
+            
+            // Fog
+            mazeCtx.globalAlpha = revealOpacity;
+            mazeCtx.drawImage(FOG_LAYER, 0, 0);
+            mazeCtx.globalAlpha = 1.0;
+            
+            if (!mazeSolved) {
+                // Player
+                mazeCtx.fillStyle = '#34d399';
+                mazeCtx.beginPath();
+                mazeCtx.arc(playerPos.x * CELL_SIZE + CELL_SIZE/2, playerPos.y * CELL_SIZE + CELL_SIZE/2, CELL_SIZE/3, 0, Math.PI * 2);
+                mazeCtx.fill();
+                
+                // End Point
+                mazeCtx.fillStyle = '#fbbf24';
+                mazeCtx.font = "20px Arial";
+                mazeCtx.fillText("❤️", PLAYER_END.x * CELL_SIZE + 2, PLAYER_END.y * CELL_SIZE + CELL_SIZE - 5);
             }
         }
 
-        function checkFlashingNumbers(days, hours, mins, secs) {
-            const allNumbers = [days, hours, mins, secs];
-            const countdownElements = [
-                document.getElementById('countDays'),
-                document.getElementById('countHours'),
-                document.getElementById('countMins'),
-                document.getElementById('countSecs')
-            ];
-
-            countdownElements.forEach((element, index) => {
-                const number = allNumbers[index];
-                const digits = String(number).padStart(2, '0').split('');
-                
-                // Check if the number is exactly 8, 5, or 3 (not containing them)
-                const shouldFlash = [8, 5, 3].includes(number);
-                
-                if (shouldFlash) {
-                    element.classList.add('flash');
-                } else {
-                    element.classList.remove('flash');
-                }
-            });
+        function smoothReveal() {
+            if (revealOpacity > 0) {
+                revealOpacity -= 0.02;
+                drawMaze();
+                requestAnimationFrame(smoothReveal);
+            } else {
+                mazeMessage.style.display = 'block';
+                launchConfetti();
+            }
         }
 
-        // ===== SECRET MODAL FUNCTIONALITY =====
-        const secretInput = document.getElementById('secretInput');
-        const secretModal = document.getElementById('secretModal');
-        const modalClose = document.getElementById('modalClose');
-        const yesBtn = document.getElementById('yesBtn');
-        const noBtn = document.getElementById('noBtn');
-        const confettiCanvas = document.getElementById('confettiCanvas');
-        const ctx = confettiCanvas.getContext('2d');
+        function movePlayer(dir) {
+            if (mazeSolved) return;
+            let nX = playerPos.x, nY = playerPos.y;
+            if (dir === 'up') nY--; if (dir === 'down') nY++; if (dir === 'left') nX--; if (dir === 'right') nX++;
+
+            if (nX >= 0 && nY >= 0 && nX < MAZE_SIZE && nY < MAZE_SIZE && daisyLayout[nY][nX] === 0) {
+                playerPos = { x: nX, y: nY };
+                stepsTaken++;
+                mazeProgress.textContent = `Steps taken: ${stepsTaken}`;
+                eraseFogAt(nX, nY);
+                drawMaze();
+                if (playerPos.x === PLAYER_END.x && playerPos.y === PLAYER_END.y) {
+                    mazeSolved = true;
+                    winnerModal.classList.add('show');
+                }
+            }
+        }
+
+        winnerClose.addEventListener('click', function() {
+            winnerModal.classList.remove('show');
+            smoothReveal();
+        });
 
         secretInput.addEventListener('input', function() {
-            const value = this.value;
-            if (value === '358') {
-                showModal();
-                this.value = ''; // Clear input after correct entry
-            }
+            if (this.value === '358') { showMazeModal(); this.value = ''; }
         });
 
-        modalClose.addEventListener('click', function() {
-            hideModal();
-        });
-
-        secretModal.addEventListener('click', function(e) {
-            if (e.target === secretModal) {
-                hideModal();
-            }
-        });
-
-        yesBtn.addEventListener('click', function() {
-            showToast('🎉 Yay! I love you! 💕');
-            launchConfetti();
-            setTimeout(() => hideModal(), 2000);
-        });
-
-        noBtn.addEventListener('click', function() {
-            // Make no button disappear with fade out effect
-            noBtn.style.transition = 'all 0.5s ease';
-            noBtn.style.opacity = '0';
-            noBtn.style.transform = 'scale(0.8)';
-            noBtn.style.pointerEvents = 'none';
-            
-            setTimeout(() => {
-                noBtn.style.display = 'none';
-            }, 500);
-            
-            showToast('💔 Too bad... you are stuck with me anyway! 💕');
-        });
-
-        function showModal() {
-            secretModal.classList.add('show');
+        function showMazeModal() {
+            mazeModal.classList.add('show');
+            playerPos = { x: 7, y: 0 };
+            stepsTaken = 0;
+            mazeSolved = false;
+            revealOpacity = 1.0;
+            mazeMessage.style.display = 'none';
+            drawFog();
+            eraseFogAt(7, 0);
+            drawMaze();
         }
 
-        function hideModal() {
-            secretModal.classList.remove('show');
-            // Reset no button
-            noBtn.textContent = 'No 💔';
-            noBtn.style.background = '#f3f4f6';
-            noBtn.style.color = '#6b7280';
-            noBtn.style.opacity = '1';
-            noBtn.style.transform = 'scale(1)';
-            noBtn.style.pointerEvents = 'auto';
-            noBtn.style.display = 'block';
-        }
+        dpadButtons.forEach(btn => btn.addEventListener('click', () => movePlayer(btn.dataset.dir)));
+        document.addEventListener('keydown', (e) => {
+            if (!mazeModal.classList.contains('show')) return;
+            if (e.key === 'ArrowUp') movePlayer('up'); if (e.key === 'ArrowDown') movePlayer('down');
+            if (e.key === 'ArrowLeft') movePlayer('left'); if (e.key === 'ArrowRight') movePlayer('right');
+        });
 
-        // ===== CONFETTI ANIMATION =====
+        mazeClose.addEventListener('click', () => mazeModal.classList.remove('show'));
+        HIDDEN_IMAGE.onload = drawMaze;
+
+        // ===== CONFETTI =====
         function launchConfetti() {
             confettiCanvas.style.display = 'block';
             confettiCanvas.width = window.innerWidth;
             confettiCanvas.height = window.innerHeight;
-
             const confetti = [];
-            const colors = ['#ec4899', '#8b5cf6', '#fbbf24', '#34d399', '#60a5fa'];
-
-            // Create confetti pieces
+            const colors = ['#ec4899', '#8b5cf6', '#fbbf24', '#34d399'];
             for (let i = 0; i < 150; i++) {
                 confetti.push({
-                    x: Math.random() * confettiCanvas.width,
-                    y: Math.random() * confettiCanvas.height - confettiCanvas.height,
-                    vx: Math.random() * 6 - 3,
-                    vy: Math.random() * 3 + 2,
-                    size: Math.random() * 8 + 5,
-                    color: colors[Math.floor(Math.random() * colors.length)],
-                    angle: Math.random() * 360,
-                    angleSpeed: Math.random() * 10 - 5
+                    x: Math.random() * confettiCanvas.width, y: Math.random() * confettiCanvas.height - confettiCanvas.height,
+                    vx: Math.random() * 6 - 3, vy: Math.random() * 3 + 2, size: Math.random() * 8 + 5,
+                    color: colors[Math.floor(Math.random() * colors.length)], angle: Math.random() * 360, angleSpeed: Math.random() * 10 - 5
                 });
             }
-
             function animate() {
                 ctx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
-
-                confetti.forEach((piece, index) => {
-                    piece.x += piece.vx;
-                    piece.y += piece.vy;
-                    piece.vy += 0.1; // gravity
-                    piece.angle += piece.angleSpeed;
-
-                    ctx.save();
-                    ctx.translate(piece.x, piece.y);
-                    ctx.rotate(piece.angle * Math.PI / 180);
-                    ctx.fillStyle = piece.color;
-                    ctx.fillRect(-piece.size / 2, -piece.size / 2, piece.size, piece.size);
-                    ctx.restore();
-
-                    // Remove confetti that falls off screen
-                    if (piece.y > confettiCanvas.height) {
-                        confetti.splice(index, 1);
-                    }
+                confetti.forEach((p, i) => {
+                    p.x += p.vx; p.y += p.vy; p.vy += 0.1; p.angle += p.angleSpeed;
+                    ctx.save(); ctx.translate(p.x, p.y); ctx.rotate(p.angle * Math.PI / 180);
+                    ctx.fillStyle = p.color; ctx.fillRect(-p.size/2, -p.size/2, p.size, p.size); ctx.restore();
+                    if (p.y > confettiCanvas.height) confetti.splice(i, 1);
                 });
-
-                if (confetti.length > 0) {
-                    requestAnimationFrame(animate);
-                } else {
-                    confettiCanvas.style.display = 'none';
-                }
+                if (confetti.length > 0) requestAnimationFrame(animate); else confettiCanvas.style.display = 'none';
             }
-
+            const ctx = confettiCanvas.getContext('2d');
             animate();
         }
-
-        updateCountdown();
-        setInterval(updateCountdown, 1000);
-
-        // ===== PARALLAX EFFECT =====
-        window.addEventListener('scroll', function() {
-            const scrollY = window.scrollY;
-            const heroBg = document.querySelector('.hero-bg');
-            if (heroBg && scrollY < window.innerHeight) {
-                heroBg.style.transform = 'translateY(' + (scrollY * 0.4) + 'px)';
-            }
-        });
     </script>
 </body>
 </html>
