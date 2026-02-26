@@ -1087,6 +1087,83 @@
             to { transform: rotate(360deg); }
         }
 
+        /* ========== PUZZLE SECTION ========== */
+        .puzzle-section {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            background: linear-gradient(135deg, #fce7f3, #ede9fe);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(190,24,93,0.1);
+        }
+
+        .puzzle-title {
+            color: #be185d;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
+
+        .puzzle-text, .puzzle-numbers {
+            font-family: 'Courier New', monospace;
+            font-size: 1.2rem;
+            color: #4a3728;
+            margin-bottom: 10px;
+        }
+
+        .puzzle-input {
+            padding: 12px 20px;
+            font-size: 1rem;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            background: white;
+            color: #374151;
+            text-align: center;
+            width: 300px;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .puzzle-input:focus {
+            outline: none;
+            border-color: #ec4899;
+            box-shadow: 0 0 0 3px rgba(236, 72, 153, 0.1);
+        }
+
+        .solve-btn {
+            background: linear-gradient(135deg, #ec4899, #8b5cf6);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-size: 1rem;
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(236,72,153,0.3);
+            transition: all 0.3s ease;
+        }
+
+        .solve-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(236,72,153,0.4);
+        }
+
+        .link-display {
+            margin-top: 20px;
+            padding: 15px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .link-display a {
+            color: #ec4899;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .link-display a:hover {
+            text-decoration: underline;
+        }
+
         /* ========== RESPONSIVE ========== */
         @media (max-width: 600px) {
             .months-wrapper {
@@ -1394,6 +1471,18 @@
             </div>
         </div>
         <p class="countdown-message">✨ Just 3 more months until our 1-year anniversary… I can't wait to love you longer. ✨</p>
+
+        <!-- Elements Puzzle -->
+        <div class="puzzle-section">
+            <h3 class="puzzle-title">Elements Puzzle</h3>
+            <p class="puzzle-text">Sa _ Lo _   _  _ R _ A  _ _</p>
+            <p class="puzzle-numbers">11    23  42 91  49  19 8</p>
+            <input type="text" id="puzzleInput" placeholder="Enter the full phrase" class="puzzle-input">
+            <button id="solveBtn" class="solve-btn">Solve</button>
+            <div id="linkDisplay" class="link-display" style="display: none;">
+                <p>Here's the link: <a href="https://www.canva.com/design/DAHCai0-noE/F79zNqygYCQQqZ8Nb5vd2w/edit?utm_content=DAHCai0-noE&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton" target="_blank">Open in Canva</a></p>
+            </div>
+        </div>
     </section>
 
     <!-- ==================== LETTER ==================== -->
@@ -1519,6 +1608,9 @@
         const mainPlayBtn = document.getElementById('mainPlayBtn');
         const albumCover = document.getElementById('albumCover');
         const progressBar = document.getElementById('progressBar');
+        const solveBtn = document.getElementById('solveBtn');
+        const puzzleInput = document.getElementById('puzzleInput');
+        const linkDisplay = document.getElementById('linkDisplay');
 
         let isCardView = false;
         let isMainPlaying = false;
@@ -1663,6 +1755,18 @@
             if (audioPlayer.duration) {
                 const progress = (audioPlayer.currentTime / audioPlayer.duration) * 100;
                 progressBar.style.width = progress + '%';
+            }
+        });
+
+        // ===== PUZZLE SOLVE =====
+        solveBtn.addEventListener('click', function() {
+            const answer = puzzleInput.value.trim().toLowerCase();
+            const correctAnswer = "sana love mo pa rin ako";
+            if (answer === correctAnswer) {
+                linkDisplay.style.display = 'block';
+                showToast('🎉 Correct! Here\'s your link.');
+            } else {
+                showToast('❌ Try again!');
             }
         });
 
